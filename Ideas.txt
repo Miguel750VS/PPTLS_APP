@@ -1,0 +1,18 @@
+v1.1
+Implementar Servidor.
+
+
+
+v1.2
+Implementar modo Individual.
+
+[
+-Interfaz visual
+-Usar distinto
+]
+
+v.3
+Implementar Servidor Multi-MultiPartida.
+
+v.4
+Implementar Perfiles.

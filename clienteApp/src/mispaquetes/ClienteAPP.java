@@ -10,44 +10,51 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 
-public class Cliente_APP_TCP_PPTLS extends JFrame {
+public class ClienteAPP extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8670939934650654871L;
-	
-	
+
+
 /**
- * 
+ *
  *
  * @throws UnknownHostException
  * @throws IOException
  */
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
-				try {
+				
 					ImageIcon icon = new ImageIcon("img/Icon.png");
-					Cliente_APP_TCP_PPTLS frame = new Cliente_APP_TCP_PPTLS();
+
+					ClienteAPP frame = new ClienteAPP();
 					frame.setVisible(true);
-					frame.setTitle("(C) Miguel v 1.0");
-					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setTitle("(C) Miguel v 1.1");
+					frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 					frame.setBounds(400, 200, 450, 300);
 					frame.setIconImage(icon.getImage());
-					String Host = "localhost";//Red publica con puerto abierto / Ipv4 de red local / localhost
 					int Puerto = 7500;// puerto remoto
 					Socket Cliente = null;
-
 					String juego = "";
 					int contadorW = 0, contadorL = 0;
 
+					do {
 					try {
+						String Host="";
+						Host = JOptionPane.showInputDialog(frame,
+								"Ip del servidor:", "Conexion con Servidor",
+								JOptionPane.QUESTION_MESSAGE).toString();//Red publica con puerto abierto / Ipv4 de red local / localhost
 						Cliente = new Socket(Host, Puerto);
 
 						// CREO FLUJO DE SALIDA => SERVIDOR
@@ -56,14 +63,14 @@ public class Cliente_APP_TCP_PPTLS extends JFrame {
 						// CREO FLUJO DE ENTRADA <= SERVIDOR
 						DataInputStream flujoEntrada = new DataInputStream(Cliente.getInputStream());
 
-						Boolean lbAcabado = false;
+						boolean lbAcabado = false;
 						String entrada = "";
 						while (!lbAcabado) {
 							do {
 								System.out.println();
 								// entrada de una cadena
 								juego = JOptionPane.showInputDialog(frame,
-										"Quieres Jugar ¿PIEDRA, PAPEL, TIJERAS, LAGARTO O SPOCK?", "-_JUEGA PPTLS_-",
+										"Quieres Jugar Â¿PIEDRA, PAPEL, TIJERAS, LAGARTO O SPOCK?", "-_JUEGA PPTLS_-",
 										JOptionPane.QUESTION_MESSAGE, new ImageIcon(icon.getImage()), null, "").toString()
 										.toUpperCase();
 								if (juego.equals("TIJERA")) {
@@ -124,7 +131,6 @@ public class Cliente_APP_TCP_PPTLS extends JFrame {
 						flujoSalida.close();
 						Cliente.close();
 
-
 					} catch (ConnectException e) {
 						JOptionPane.showMessageDialog(frame, "El servidor no esta abierto", "Error", JOptionPane.ERROR_MESSAGE);
 
@@ -144,8 +150,12 @@ public class Cliente_APP_TCP_PPTLS extends JFrame {
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
+						} catch (NullPointerException e1) {
+							JOptionPane.showMessageDialog(frame, "El servidor no esta abierto", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						System.exit(0);
+					}catch(UnknownHostException e) {
+						JOptionPane.showMessageDialog(frame, "Esa ip no corresponde a ningun servidor", "Error", JOptionPane.ERROR_MESSAGE);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -153,13 +163,12 @@ public class Cliente_APP_TCP_PPTLS extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				
+				}while(true);
 			}
 		});
 	}// main
 
-	
+
 
 }
