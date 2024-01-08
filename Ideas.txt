@@ -1,18 +1,19 @@
-v1.1
+v1.1 [DONE]
 Implementar Servidor.
 
 
 
-v1.2
+v1.2 
 Implementar modo Individual.
 
 [
 -Interfaz visual
--Usar distinto
+-Usar distinto server
 ]
 
 v.3
 Implementar Servidor Multi-MultiPartida.
+-Pestaña de idioma [Español/Ingles]
 
 v.4
 Implementar Perfiles.
